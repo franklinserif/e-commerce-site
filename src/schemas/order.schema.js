@@ -7,17 +7,17 @@ const productId = Joi.number().integer();
 const amount = Joi.number().integer();
 
 const getOderSchema = Joi.object({
-  id: id.require(),
+  id: id.required(),
 });
 
 const createOrderSchema = Joi.object({
-  customerId: customerId.require(),
+  customerId: customerId.required(),
 });
 
 const addItemSchema = Joi.object({
-  orderId: orderId.require(),
-  productId: productId.require(),
-  amount: amount.require(),
+  orderId: orderId.required(),
+  productId: productId.required(),
+  amount: amount.required(),
 });
 
 module.exports = { getOderSchema, createOrderSchema, addItemSchema };

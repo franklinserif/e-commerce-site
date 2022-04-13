@@ -5,8 +5,8 @@ const name = Joi.string().min(3).max(15);
 const image = Joi.string().uri();
 
 const createCategorySchema = Joi.object({
-  name: name.require(),
-  image: image.require(),
+  name: name.required(),
+  image: image.required(),
 });
 
 const updateCategorySchema = Joi.object({
@@ -15,7 +15,7 @@ const updateCategorySchema = Joi.object({
 });
 
 const getCategorySchema = Joi.object({
-  id: id.require(),
+  id: id.required(),
 });
 
 module.exports = {
