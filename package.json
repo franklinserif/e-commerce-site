@@ -16,7 +16,7 @@
     "express": "^4.17.3",
     "@hapi/boom": "^9.1.4",
     "cors": "^2.8.5",
-    "faker": "^2.0.0",
+    "faker": "^4.3.4",
     "joi": "^17.6.0"
   },
   "devDependencies": {

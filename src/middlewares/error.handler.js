@@ -1,16 +1,16 @@
-function logError(err, res, req, next) {
+function logError(err, req, res, next) {
   console.log(`%cI ⚠️ ${err} `, 'color: red');
   next(err);
 }
 
-function errorHandler(err, res, req, next) {
+function errorHandler(err, req, res, next) {
   res.status(500).json({
     message: err.message,
     stack: err.stack,
   });
 }
 
-function boomErrorHandler(err, res, req, next) {
+function boomErrorHandler(err, req, res, next) {
   if (err.isBoom) {
     const { output } = err;
     res.status(output.statusCode).json(output.payload);

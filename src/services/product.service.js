@@ -26,43 +26,43 @@ class ProductsService {
       ...data,
     };
     this.products.push(newProduct);
-    return data;
+    return newProduct;
   }
 
-  async find() {
+  find() {
     return this.products;
   }
 
   async findOne(id) {
-    const product = this.products.find((product) => product.id === id);
-
-    if (!product) throw boom.notFound('Product not found');
-    if (!product.isBlock) throw boom.conflict('Product is block');
+    const product = this.products.find((item) => item.id === id);
+    if (!product) {
+      throw boom.notFound('product not found');
+    }
+    if (product.isBlock) {
+      throw boom.conflict('product is block');
+    }
     return product;
   }
 
   async update(id, changes) {
-    const productIndex = this.product.findIndex((product) => product.id === id);
-    if (!productIndex === -1) throw boom.notFound('Product not found');
-
-    const product = this.products[productIndex];
-
-    this.products[productIndex] = {
+    const index = this.products.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw boom.notFound('product not found');
+    }
+    const product = this.products[index];
+    this.products[index] = {
       ...product,
       ...changes,
     };
-
-    return this.products[productIndex];
+    return this.products[index];
   }
 
   async delete(id) {
-    const productIndex = this.products.findIndex(
-      (product) => product.id === id
-    );
-
-    if (!productIndex) throw boom.notFound('Product not found');
-
-    this.products.splice(productIndex, 1);
+    const index = this.products.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw boom.notFound('product not found');
+    }
+    this.products.splice(index, 1);
     return { id };
   }
 }

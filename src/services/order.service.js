@@ -30,12 +30,7 @@ class OrderService {
     const orderIndex = this.orders.findIndex((order) => order.id === id);
     if (!orderIndex === -1) throw boom.notFound('Order not found');
 
-    const order = this.orders[orderIndex];
-
-    this.orders[orderIndex] = {
-      ...order,
-      ...changes,
-    };
+    this.orders[orderIndex].push(changes);
 
     return this.orders[orderIndex];
   }

@@ -18,7 +18,7 @@ const options = {
     if (whiteList.includes(origin) || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('no permitido'));
+      callback(new Error('forbidden'));
     }
   },
 };
@@ -27,14 +27,6 @@ app.use(cors(options));
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hi, this is my first NodeJS Express server');
-});
-
-app.get('/products', (req, res) => {
-  res.json({ name: 'Glass', price: 32.03 });
-});
-
 routerApi(app);
 
 app.use(logError);
@@ -42,5 +34,5 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`app listening on port ${port}`);
+  //console.log(`app listening on port ${port}`);
 });
