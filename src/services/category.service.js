@@ -1,25 +1,68 @@
 const boom = require('@hapi/boom');
+const faker = require('faker');
 
 class CategoryService {
-  constructor() {}
+  constructor() {
+    this.categories = [];
+    this.generate();
+  }
+
+  generate() {
+    const limit = 20;
+    for (let index = 0; index < limit; index++) {
+      this.categories.push({
+        id: faker.datatype.uuid(),
+        name: faker.commerce.department(),
+        image: faker.image.imageUrl(),
+      });
+    }
+  }
 
   async create(data) {
+    const newCategory = {
+      id: faker.datatype.uuid(),
+      ...data,
+    };
+    this.categories.push(newCategory);
     return data;
   }
 
   async find() {
-    return [];
+    return this.categories;
   }
 
   async findOne(id) {
-    return { id };
+    const category = this.categories.find((category) => category.id === id);
+
+    if (!category) throw boom.notFound('Category not found');
+    return category;
   }
 
   async update(id, changes) {
-    return { id, changes };
+    const categoryIndex = this.category.findIndex(
+      (category) => category.id === id
+    );
+
+    if (!categoryIndex === -1) throw boom.notFound('Category not found');
+
+    const category = this.categories[categoryIndex];
+
+    this.categories[categoryIndex] = {
+      ...category,
+      ...changes,
+    };
+
+    return this.categories[categoryIndex];
   }
 
   async delete(id) {
+    const categoryIndex = this.categories.findIndex(
+      (category) => category.id === id
+    );
+
+    if (!categoryIndex) throw boom.notFound('category not found');
+
+    this.categories.splice(categoryIndex, 1);
     return { id };
   }
 }
