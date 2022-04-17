@@ -1,7 +1,7 @@
 const express = require('express');
 
-const CategoryService = require('./../services/category.service');
-const validatorHandler = require('./../middlewares/validator.handler');
+const CategoryService = require('../services/category.service');
+const validatorHandler = require('../middlewares/validator.handler');
 const {
   createCategorySchema,
   updateCategorySchema,
@@ -31,7 +31,7 @@ router.get(
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 router.post(
@@ -39,13 +39,13 @@ router.post(
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
-      const body = req.body;
+      const { body } = req;
       const newCategory = await service.create(body);
       res.status(201).json(newCategory);
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 router.patch(
@@ -55,13 +55,13 @@ router.patch(
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const body = req.body;
+      const { body } = req;
       const category = await service.update(id, body);
       res.json(category);
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 router.delete(
@@ -75,7 +75,7 @@ router.delete(
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 module.exports = router;

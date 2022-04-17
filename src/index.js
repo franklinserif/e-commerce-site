@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
+require('dotenv').config();
+
 const {
   logError,
   errorHandler,
@@ -9,9 +11,10 @@ const {
 
 const app = express();
 
+// eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
 
-const whiteList = ['http://localhost:8080', 'https://myapp.co'];
+const whiteList = ['http://localhost:8080'];
 
 const options = {
   origin: (origin, callback) => {
@@ -34,5 +37,5 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 
 app.listen(port, () => {
-  //console.log(`app listening on port ${port}`);
+  // console.log(`app listening on port ${port}`);
 });

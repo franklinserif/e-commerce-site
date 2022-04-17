@@ -9,7 +9,7 @@ class CategoryService {
 
   generate() {
     const limit = 20;
-    for (let index = 0; index < limit; index++) {
+    for (let index = 0; index < limit; index += 1) {
       this.categories.push({
         id: faker.datatype.uuid(),
         name: faker.commerce.department(),
@@ -23,6 +23,7 @@ class CategoryService {
       id: faker.datatype.uuid(),
       ...data,
     };
+
     this.categories.push(newCategory);
     return data;
   }
@@ -32,15 +33,17 @@ class CategoryService {
   }
 
   async findOne(id) {
-    const category = this.categories.find((category) => category.id === id);
+    const categoryFound = this.categories.find(
+      (category) => category.id === id,
+    );
 
-    if (!category) throw boom.notFound('Category not found');
-    return category;
+    if (!categoryFound) throw boom.notFound('Category not found');
+    return categoryFound;
   }
 
   async update(id, changes) {
     const categoryIndex = this.category.findIndex(
-      (category) => category.id === id
+      (category) => category.id === id,
     );
 
     if (!categoryIndex === -1) throw boom.notFound('Category not found');
@@ -57,7 +60,7 @@ class CategoryService {
 
   async delete(id) {
     const categoryIndex = this.categories.findIndex(
-      (category) => category.id === id
+      (category) => category.id === id,
     );
 
     if (!categoryIndex) throw boom.notFound('category not found');
